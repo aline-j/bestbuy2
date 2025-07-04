@@ -1,5 +1,5 @@
 from typing import List, Tuple
-import products
+from products import Product
 
 
 class Store:
@@ -8,7 +8,7 @@ class Store:
     Provides methods for adding, removing, listing, and ordering products.
     """
 
-    def __init__(self, products: List[products.Product]):
+    def __init__(self, products: List[Product]):
         """
         Initializes the store with a list of products.
 
@@ -16,7 +16,7 @@ class Store:
         """
         self.products = products
 
-    def add_product(self, product: products.Product):
+    def add_product(self, product: Product):
         """
         Adds a product to the store's inventory.
 
@@ -24,7 +24,7 @@ class Store:
         """
         self.products.append(product)
 
-    def remove_product(self, product: products.Product):
+    def remove_product(self, product: Product):
         """
         Removes a product from the store's inventory.
 
@@ -44,7 +44,7 @@ class Store:
                 total_quantity += product.get_quantity()
         return total_quantity
 
-    def get_all_products(self) -> List[products.Product]:
+    def get_all_products(self) -> List[Product]:
         """
         Returns a list of all active products in the store.
 
@@ -57,7 +57,7 @@ class Store:
         return active_products
 
     @staticmethod
-    def order(shopping_list: List[Tuple[products.Product, int]]) -> float:
+    def order(shopping_list: List[Tuple[Product, int]]) -> float:
         """
         Processes an order based on a list of (product, quantity) tuples.
 
