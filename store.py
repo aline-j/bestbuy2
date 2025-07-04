@@ -56,7 +56,8 @@ class Store:
                 active_products.append(product)
         return active_products
 
-    def order(self, shopping_list: List[Tuple[products.Product, int]]) -> float:
+    @staticmethod
+    def order(shopping_list: List[Tuple[products.Product, int]]) -> float:
         """
         Processes an order based on a list of (product, quantity) tuples.
 
