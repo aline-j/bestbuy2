@@ -42,7 +42,7 @@ def list_all_products():
     active_products = best_buy.get_all_products()
     for i, product in enumerate(active_products):
         print(f"{i + 1}. ", end="")
-        product.__str__()
+        print(product.__str__())
     print("------")
 
 
@@ -64,7 +64,7 @@ def make_order():
     active_products = best_buy.get_all_products()
     for i, product in enumerate(active_products):
         print(f"{i + 1}. ", end="")
-        product.__str__()
+        print(product.__str__())
     print("------")
     print("When you want to finish order, enter empty text.")
 
