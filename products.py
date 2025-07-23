@@ -81,7 +81,7 @@ class Product:
         """
         self.active = False
 
-    def show(self) -> None:
+    def __str__(self) -> None:
         """
         Prints a human-readable summary of the product.
         """
@@ -154,7 +154,7 @@ class NonStockedProduct(Product):
         # No quantity check needed
         return quantity * self.price
 
-    def show(self):
+    def __str__(self):
         if self.promotion:
             promo = f", Promotion: {self.promotion.name}"
         else:
@@ -176,7 +176,7 @@ class LimitedProduct(Product):
             raise ValueError(f"Cannot buy more than {self.maximum} items per order.")
         return super().buy(quantity)
 
-    def show(self):
+    def __str__(self):
         if self.promotion:
             promo = f", Promotion: {self.promotion.name}"
         else:
