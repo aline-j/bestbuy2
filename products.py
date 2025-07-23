@@ -14,7 +14,7 @@ class Product:
         Initializes a new Product instance.
 
         Raises:
-            ValueError: If name is empty, or price/quantity is negative.
+            ValueError: If the name is empty, or price/quantity is negative.
         """
         if not name:
             raise ValueError("Product name cannot be empty.")
@@ -103,8 +103,8 @@ class Product:
             str: The total cost as a string with € symbol.
 
         Raises:
-            ValueError: If product is inactive, quantity is invalid,
-                        or not enough stock is available.
+            ValueError: If the product is inactive, quantity is invalid,
+                        or not enough stocks are available.
         """
         if not self.active:
             raise ValueError("Cannot buy an inactive product.")
