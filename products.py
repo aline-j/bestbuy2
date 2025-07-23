@@ -108,3 +108,52 @@ class Product:
             self.deactivate()
 
         return total_price
+
+
+class NonStockedProduct(Product):
+    """
+    A non-stocked product (e.g., Microsoft Windows license).
+    Always has quantity 0 and cannot be updated.
+    """
+    def __init__(self, name: str, price: float):
+        super().__init__(name, price, quantity=0)
+
+    def set_quantity(self, quantity: int) -> None:
+        """
+        Override the set_quantity method to prevent updating.
+        Args:
+            quantity:
+        """
+        pass    # Ignore quantity changes
+
+    def get_quantity(self) -> int:
+        return 0
+
+    def buy(self, quantity: int) -> float:
+        if not self.active:
+            raise ValueError("Cannot buy an inactive product.")
+        if quantity <= 0:
+            raise ValueError("Quantity to buy must be positive.")
+        # No quantity check needed
+        return quantity * self.price
+
+    def show(self):
+        print(f"{self.name} (Non-stocked), Price: ${self.price}")
+
+
+class LimitedProduct(Product):
+    """
+    A product with a purchase limit per order.
+    """
+    def __init__(self, name, price, quantity, maximum):
+        super().__init__(name, price, quantity)
+        self.maximum = maximum
+
+    def buy(self, quantity: int) -> float:
+        if quantity > self.maximum:
+            raise ValueError(f"Cannot buy more than {self.maximum} items per order.")
+        return super().buy(quantity)
+
+    def show(self):
+        print(
+            f"{self.name} (Limited to {self.maximum}/order), Price: ${self.price}, Quantity: {self.get_quantity()}")
