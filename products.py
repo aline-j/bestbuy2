@@ -27,6 +27,13 @@ class Product:
         self.price = price
         self.quantity = quantity
         self.active = True
+        self.promotion = None
+
+    def set_promotion(self, promotion):
+        self.promotion = promotion
+
+    def get_promotion(self):
+        return self.promotion
 
     def get_quantity(self) -> int:
         """
@@ -78,7 +85,12 @@ class Product:
         """
         Prints a human-readable summary of the product.
         """
-        print(f"{self.name}, Price: {self.price}, Quantity: {self.quantity}")
+        if self.promotion:
+            promo = f", Promotion: {self.promotion.name}"
+        else:
+            promo = ", Promotion: None"
+
+        print(f"{self.name}, Price: ${self.price}, Quantity: {self.quantity}{promo}")
 
     def buy(self, quantity: int) -> float:
         """
@@ -101,7 +113,12 @@ class Product:
         if quantity > self.quantity:
             raise ValueError("Not enough quantity in stock.")
 
-        total_price = quantity * self.price
+        # Apply promotion (if available)
+        if self.promotion:
+            total_price = self.promotion.apply_promotion(self, quantity)
+        else:
+            total_price = self.price * quantity
+
         self.quantity -= quantity
 
         if self.quantity == 0:
@@ -138,7 +155,12 @@ class NonStockedProduct(Product):
         return quantity * self.price
 
     def show(self):
-        print(f"{self.name} (Non-stocked), Price: ${self.price}")
+        if self.promotion:
+            promo = f", Promotion: {self.promotion.name}"
+        else:
+            promo = ", Promotion: None"
+
+        print(f"{self.name}, Price: ${self.price}{promo}")
 
 
 class LimitedProduct(Product):
@@ -155,5 +177,9 @@ class LimitedProduct(Product):
         return super().buy(quantity)
 
     def show(self):
-        print(
-            f"{self.name} (Limited to {self.maximum}/order), Price: ${self.price}, Quantity: {self.get_quantity()}")
+        if self.promotion:
+            promo = f", Promotion: {self.promotion.name}"
+        else:
+            promo = ", Promotion: None"
+
+        print(f"{self.name}, Price: ${self.price}, Quantity: {self.quantity}{promo}")
