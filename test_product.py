@@ -12,13 +12,13 @@ def test_create_valid_product():
 
 
 def test_create_product_with_empty_name():
-    # Test that creating a product with empty name invokes an exception.
+    # Test that creating a product with an empty name invokes an exception.
     with pytest.raises(ValueError, match="Product name cannot be empty."):
         Product("", price=1450, quantity=100)
 
 
 def test_create_product_with_negative_price():
-    # Test that creating a product with negative price invokes an exception.
+    # Test that creating a product with a negative price invokes an exception.
     with pytest.raises(ValueError, match="Product price cannot be negative."):
         Product("MacBook Air M2", price=-10, quantity=100)
 

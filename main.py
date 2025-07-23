@@ -2,7 +2,7 @@ import store
 import products
 import promotions
 
-# setup initial stock of inventory
+# Set up the initial stock of inventory
 product_list = [ products.Product("MacBook Air M2", price=1450, quantity=100),
                  products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
                  products.Product("Google Pixel 7", price=500, quantity=250),
@@ -24,7 +24,7 @@ best_buy = store.Store(product_list)
 
 def show_menu():
     """
-    Displays the main store menu to the  user.
+    Displays the main store menu to the user.
     """
     print("\nStore Menu")
     print("----------")
@@ -42,7 +42,7 @@ def list_all_products():
     active_products = best_buy.get_all_products()
     for i, product in enumerate(active_products):
         print(f"{i + 1}. ", end="")
-        product.show()
+        product.__str__()
     print("------")
 
 
@@ -64,7 +64,7 @@ def make_order():
     active_products = best_buy.get_all_products()
     for i, product in enumerate(active_products):
         print(f"{i + 1}. ", end="")
-        product.show()
+        product.__str__()
     print("------")
     print("When you want to finish order, enter empty text.")
 
@@ -94,7 +94,7 @@ def make_order():
             print(f"Cannot buy more than {selected_product.maximum} items of '{selected_product.name}' per order.")
             continue
 
-        # Add valid selection to order list
+        # Add a valid selection to the order list
         order.append((selected_product, quantity))
         print("Product added to list!\n")
 
