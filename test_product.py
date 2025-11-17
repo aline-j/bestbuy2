@@ -8,7 +8,7 @@ def test_create_valid_product():
     assert product.name == "MacBook Air M2"
     assert product.price == 1450
     assert product.quantity == 100
-    assert product.is_active() == True
+    assert product.is_active()
 
 
 def test_create_product_with_empty_name():
@@ -28,11 +28,12 @@ def test_product_quantity_zero_becomes_inactive():
     product = Product("Bose Headphones", price=250, quantity=1)
     product.buy(1)
     assert product.get_quantity() == 0
-    assert product.is_active() == False
+    assert not product.is_active()
 
 
 def test_product_purchase_modifies_quantity_and_returns_total_price():
-    # Test that product purchase modifies the quantity and returns the right output.
+    # Test that product purchase modifies the quantity and
+    # returns the right output.
     product = Product("Pixel 7", price=500, quantity=10)
     total = product.buy(3)
     assert total == 1500

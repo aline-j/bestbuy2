@@ -90,7 +90,10 @@ class Product:
         else:
             promo = ", Promotion: None"
 
-        return f"{self.name}, Price: ${self.price}, Quantity: {self.quantity}{promo}"
+        return (
+            f"{self.name}, Price: ${self.price}, "
+            f"Quantity: {self.quantity}{promo}"
+        )
 
     def buy(self, quantity: int) -> float:
         """
@@ -132,6 +135,7 @@ class NonStockedProduct(Product):
     A non-stocked product (e.g., Microsoft Windows license).
     Always has quantity 0 and cannot be updated.
     """
+
     def __init__(self, name: str, price: float):
         super().__init__(name, price, quantity=0)
 
@@ -167,13 +171,15 @@ class LimitedProduct(Product):
     """
     A product with a purchase limit per order.
     """
+
     def __init__(self, name, price, quantity, maximum):
         super().__init__(name, price, quantity)
         self.maximum = maximum
 
     def buy(self, quantity: int) -> float:
         if quantity > self.maximum:
-            raise ValueError(f"Cannot buy more than {self.maximum} items per order.")
+            raise ValueError(
+                f"Cannot buy more than {self.maximum} items per order.")
         return super().buy(quantity)
 
     def __str__(self) -> str:
@@ -182,4 +188,5 @@ class LimitedProduct(Product):
         else:
             promo = ", Promotion: None"
 
-        return f"{self.name}, Price: ${self.price}, Limited to {self.maximum} per order!{promo}"
+        return (f"{self.name}, Price: ${self.price}, "
+                f"Limited to {self.maximum} per order!{promo}")

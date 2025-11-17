@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class Promotion(ABC):
     def __init__(self, name: str):
         self.name = name
@@ -28,7 +29,8 @@ class SecondHalfPrice(Promotion):
         price_per_unit = product.price
         num_half_price = quantity // 2
         num_full_price = quantity - num_half_price
-        total_cost = num_full_price * price_per_unit + num_half_price * price_per_unit * 0.5
+        total_cost = num_full_price * price_per_unit + \
+            num_half_price * price_per_unit * 0.5
         return total_cost
 
 

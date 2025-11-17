@@ -12,7 +12,7 @@ class Store:
         """
         Initializes the store with a list of products.
 
-        :param products: List of Product instances to initialize the store with.
+        :param products: List of Product instances to initialize the store
         """
         self.products = products
 
@@ -61,10 +61,18 @@ class Store:
         """
         Processes an order based on a list of (product, quantity) tuples.
 
-        :param shopping_list: List of tuples with products and desired quantities.
+        :param shopping_list:
+        List of tuples with products and desired quantities.
         :return: Total price of the processed order.
         """
+        summarized = {}
+        for product, qty in shopping_list:
+            if product in summarized:
+                summarized[product] += qty
+            else:
+                summarized[product] = qty
+
         total_price = 0.0
-        for product, quantity in shopping_list:
+        for product, quantity in summarized.items():
             total_price += product.buy(quantity)
         return total_price
