@@ -3,12 +3,14 @@ import products
 import promotions
 
 # Set up the initial stock of inventory
-product_list = [ products.Product("MacBook Air M2", price=1450, quantity=100),
-                 products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
-                 products.Product("Google Pixel 7", price=500, quantity=250),
-                 products.NonStockedProduct("Windows License", price=125),
-                 products.LimitedProduct("Shipping", price=10, quantity=250, maximum=1)
-               ]
+product_list = [products.Product("MacBook Air M2", price=1450, quantity=100),
+                products.Product("Bose QuietComfort Earbuds",
+                                 price=250, quantity=500),
+                products.Product("Google Pixel 7", price=500, quantity=250),
+                products.NonStockedProduct("Windows License", price=125),
+                products.LimitedProduct(
+    "Shipping", price=10, quantity=250, maximum=1)
+]
 
 # Create promotion catalog
 second_half_price = promotions.SecondHalfPrice("Second Half price!")
@@ -21,6 +23,7 @@ product_list[1].set_promotion(third_one_free)
 product_list[3].set_promotion(twenty_percent)
 
 best_buy = store.Store(product_list)
+
 
 def show_menu():
     """
@@ -74,7 +77,8 @@ def make_order():
         product_choice = input("Which product # do you want? ").strip()
         if product_choice == "":
             break
-        if not product_choice.isdigit() or not 1 <= int(product_choice) <= len(active_products):
+        if (not product_choice.isdigit() or
+                not 1 <= int(product_choice) <= len(active_products)):
             print("Invalid product number. Try again.")
             continue
 
@@ -90,8 +94,16 @@ def make_order():
         quantity = int(quantity_input)
 
         # Check limit for LimitedProduct
-        if isinstance(selected_product, products.LimitedProduct) and quantity > selected_product.maximum:
-            print(f"Cannot buy more than {selected_product.maximum} items of '{selected_product.name}' per order.")
+        current_amount = 0
+        for p, q in order:
+            if p is selected_product:
+                current_amount += q
+
+        if (isinstance(selected_product, products.LimitedProduct) and
+                current_amount + quantity > selected_product.maximum):
+            print(
+                f"Error while making order! Only {selected_product.maximum} "
+                f"is allowed from this '{selected_product.name}'!")
             continue
 
         # Add a valid selection to the order list

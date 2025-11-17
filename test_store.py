@@ -7,7 +7,8 @@ from store import Store
 def sample_products():
     return [
         Product("MacBook Air M2", price=1450, quantity=100),
-        Product("Bose QuietComfort Earbuds", price=250, quantity=0),  # Inactive by default
+        Product("Bose QuietComfort Earbuds", price=250,
+                quantity=0),  # Inactive by default
         Product("Google Pixel 7", price=500, quantity=50),
     ]
 
@@ -41,7 +42,8 @@ def test_get_all_products_returns_only_active(store_with_products):
     assert len(active_products) == 3  # Only MacBook and Pixel
 
 
-def test_order_process_reduces_quantities_and_returns_total(store_with_products):
+def test_order_process_reduces_quantities_and_returns_total(
+        store_with_products):
     macbook = store_with_products.products[0]
     pixel = store_with_products.products[2]
 
